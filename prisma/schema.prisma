@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  created_at   DateTime? @default(now())
+  destroyed_at DateTime?
+  updated_at   DateTime?
+  name         String
+  email        String
+  password     String
+  role         String
+
+  @@map("user")
+}
+
+model Candidate {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  created_at   DateTime?    @default(now())
+  destroyed_at DateTime?
+  updated_at   DateTime?
+  experiences  Experience[] @relation("CandidateToExperience")
+  cpf          String
+  name         String
+  birthDate    String
+  phone        String
+  cep          String
+  city         String
+  state        String
+  neighborhood String
+  pcd          String
+  gender       String
+  race         String
+  education    String
+  courses      String
+
+  @@map("candidate")
+}
+
+model Experience {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  created_at   DateTime? @default(now())
+  candidateId  String    @db.ObjectId
+  candidate    Candidate @relation("CandidateToExperience", fields: [candidateId], references: [id])
+  destroyed_at DateTime?
+  updated_at   DateTime?
+  role         String
+  time         String
+
+  @@map("experience")
+}
+
+model Company {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  created_at    DateTime? @default(now())
+  destroyed_at  DateTime?
+  updated_at    DateTime?
+  cnpj          String
+  corporateName String
+  tradeName     String
+  postalCode    String
+  street        String
+  number        String
+  complement    String
+  neighborhood  String
+  city          String
+  country       String
+  website       String
+  state         String
+
+  @@map("company")
+}
