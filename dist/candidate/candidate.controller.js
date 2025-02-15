@@ -12,75 +12,63 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_services_1 = __importDefault(require("./user.services"));
-const user_services = new user_services_1.default();
-class UserControllers {
-    userCreateController(req, res) {
+const candidate_services_1 = __importDefault(require("./candidate.services"));
+const candidate_services = new candidate_services_1.default();
+class CandidateControllers {
+    candidateCreateController(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const body = req.body;
-                const user = yield user_services.userCreateService(body);
-                res.status(user.status).send(user.response);
+                const candidate = yield candidate_services.candidateCreateService(body);
+                res.status(candidate.status).send(candidate.response);
             }
             catch (error) {
                 res.status(500).json({ error: error || "Internal Server Error" });
             }
         });
     }
-    userUpdateController(req, res) {
+    candidateUpdateController(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const body = req.body;
                 const id = req.params.id;
-                const user = yield user_services.userUpdateService(id, body);
-                res.status(user.status).send(user.response);
+                const candidate = yield candidate_services.candidateUpdateService(id, body);
+                res.status(candidate.status).send(candidate.response);
             }
             catch (error) {
                 res.status(500).json({ error: error || "Internal Server Error" });
             }
         });
     }
-    userDeleteController(req, res) {
+    candidateDeleteController(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const id = req.params.id;
-                const user = yield user_services.userDeleteService(id);
-                res.status(user.status).send(user.response);
+                const candidate = yield candidate_services.candidateDeleteService(id);
+                res.status(candidate.status).send(candidate.response);
             }
             catch (error) {
                 res.status(500).json({ error: error || "Internal Server Error" });
             }
         });
     }
-    userListAllController(req, res) {
+    candidateListAllController(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const allUsers = yield user_services.userListAllService();
-                res.status(allUsers.status).send(allUsers.response);
+                const allCandidates = yield candidate_services.candidatesListAllService();
+                res.status(allCandidates.status).send(allCandidates.response);
             }
             catch (error) {
                 res.status(500).json({ error: error || "Internal Server Error" });
             }
         });
     }
-    userListByIdController(req, res) {
+    candidateListByIdController(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const id = req.params.id;
-                const user = yield user_services.userListByIdService(id);
-                res.status(user.status).send(user.response);
-            }
-            catch (error) {
-                res.status(500).json({ error: error || "Internal Server Error" });
-            }
-        });
-    }
-    userLoginController(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const body = req.body;
-                const user = yield user_services.userLoginService(body);
-                res.status(user.status).send(user.response);
+                const candidate = yield candidate_services.candidateListByIdService(id);
+                res.status(candidate.status).send(candidate.response);
             }
             catch (error) {
                 res.status(500).json({ error: error || "Internal Server Error" });
@@ -88,4 +76,4 @@ class UserControllers {
         });
     }
 }
-exports.default = UserControllers;
+exports.default = CandidateControllers;

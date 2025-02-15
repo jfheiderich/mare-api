@@ -8,10 +8,9 @@ export default class UserControllers {
     try {
       const body = req.body;
       const user = await user_services.userCreateService(body);
-
       res.status(user.status).send(user.response);
     } catch (error) {
-      return { status: 500, response: { error } };
+      res.status(500).json({ error: error || "Internal Server Error" });
     }
   }
 
@@ -20,10 +19,9 @@ export default class UserControllers {
       const body = req.body;
       const id = req.params.id;
       const user = await user_services.userUpdateService(id, body);
-
       res.status(user.status).send(user.response);
     } catch (error) {
-      return { status: 500, response: { error } };
+      res.status(500).json({ error: error || "Internal Server Error" });
     }
   }
 
@@ -31,20 +29,18 @@ export default class UserControllers {
     try {
       const id = req.params.id;
       const user = await user_services.userDeleteService(id);
-
       res.status(user.status).send(user.response);
     } catch (error) {
-      return { status: 500, response: { error } };
+      res.status(500).json({ error: error || "Internal Server Error" });
     }
   }
 
-  async userListAllController(res: Response) {
+  async userListAllController(req: Request, res: Response) {
     try {
       const allUsers = await user_services.userListAllService();
-
       res.status(allUsers.status).send(allUsers.response);
     } catch (error) {
-      return { status: 500, response: { error } };
+      res.status(500).json({ error: error || "Internal Server Error" });
     }
   }
 
@@ -52,10 +48,9 @@ export default class UserControllers {
     try {
       const id = req.params.id;
       const user = await user_services.userListByIdService(id);
-
       res.status(user.status).send(user.response);
     } catch (error) {
-      return { status: 500, response: { error } };
+      res.status(500).json({ error: error || "Internal Server Error" });
     }
   }
 
@@ -63,10 +58,9 @@ export default class UserControllers {
     try {
       const body = req.body;
       const user = await user_services.userLoginService(body);
-
       res.status(user.status).send(user.response);
     } catch (error) {
-      return { status: 500, response: { error } };
+      res.status(500).json({ error: error || "Internal Server Error" });
     }
   }
 }

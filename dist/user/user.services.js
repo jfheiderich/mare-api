@@ -184,7 +184,7 @@ class UserServices {
                     role: user.role,
                     token,
                 };
-                return { status: 404, response: userObjToShow };
+                return { status: 200, response: userObjToShow };
             }
             catch (error) {
                 return { status: 500, response: { error } };

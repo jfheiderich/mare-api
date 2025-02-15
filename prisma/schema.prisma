@@ -26,7 +26,7 @@ model Candidate {
   destroyed_at DateTime?
   updated_at   DateTime?
   experiences  Experience[] @relation("CandidateToExperience")
-  cpf          String
+  cpf          String       @unique
   name         String
   birthDate    String
   phone        String
