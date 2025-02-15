@@ -1,5 +1,7 @@
 {
 	"compilerOptions": {
+		"moduleResolution": "node",
+		"skipLibCheck": true,
 		"target": "ES6",
 		"module": "CommonJS",
 		"outDir": "dist",
