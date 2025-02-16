@@ -4,7 +4,7 @@ import candidateRoutes from "./candidates.routes";
 
 const router = Router();
 
-router.use("/users", userRoutes);
+router.use("/user", userRoutes);
 router.use("/candidates", candidateRoutes);
 
 export default router;

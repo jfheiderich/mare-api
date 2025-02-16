@@ -45,7 +45,8 @@ class CandidateServices {
                     missingFields.push("pcd");
                 if (!phone)
                     missingFields.push("phone");
-                // if (!race) missingFields.push("race");
+                if (!race)
+                    missingFields.push("race");
                 // if (!state) missingFields.push("state");
                 // if (!registration_via) missingFields.push("registration_via");
                 if (missingFields.length > 0) {

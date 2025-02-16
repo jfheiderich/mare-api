@@ -7,6 +7,6 @@ const express_1 = require("express");
 const user_routes_1 = __importDefault(require("./user.routes"));
 const candidates_routes_1 = __importDefault(require("./candidates.routes"));
 const router = (0, express_1.Router)();
-router.use("/users", user_routes_1.default);
+router.use("/user", user_routes_1.default);
 router.use("/candidates", candidates_routes_1.default);
 exports.default = router;

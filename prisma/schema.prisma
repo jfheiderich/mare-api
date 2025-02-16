@@ -50,7 +50,7 @@ model Experience {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   created_at   DateTime? @default(now())
   candidateId  String    @db.ObjectId
-  candidate    Candidate @relation("CandidateToExperience", fields: [candidateId], references: [id])
+  candidate    Candidate @relation("CandidateToExperience", fields: [candidateId], references: [id], onDelete: Cascade)
   destroyed_at DateTime?
   updated_at   DateTime?
   role         String
