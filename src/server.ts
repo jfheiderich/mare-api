@@ -8,6 +8,10 @@ app.use(express.json());
 
 app.use("/", router);
 
+app.get("/", (req, res) => {
+  res.json({ message: "API funcionando corretamente! 🚀" });
+});
+
 const port = process.env.PORT || 4444;
 
 app.listen(port, () => {
