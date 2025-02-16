@@ -15,7 +15,7 @@ class CandidateServices {
     candidateCreateService(data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { birthDate, cep, city, courses, cpf, education, experiences, gender, name, neighborhood, pcd, phone, race, state, } = data;
+                const { birthDate, cep, city, courses, cpf, education, experiences, gender, name, neighborhood, pcd, phone, race, note, registration_via, } = data;
                 const existingCandidate = yield prisma.candidate.findUnique({
                     where: { cpf },
                 });
@@ -25,12 +25,10 @@ class CandidateServices {
                 const missingFields = [];
                 if (!birthDate)
                     missingFields.push("birthDate");
-                if (!cep)
-                    missingFields.push("cep");
+                // if (!cep) missingFields.push("cep");
                 if (!city)
                     missingFields.push("city");
-                if (!courses)
-                    missingFields.push("courses");
+                // if (!courses) missingFields.push("courses");
                 if (!cpf)
                     missingFields.push("cpf");
                 if (!education)
@@ -47,10 +45,9 @@ class CandidateServices {
                     missingFields.push("pcd");
                 if (!phone)
                     missingFields.push("phone");
-                if (!race)
-                    missingFields.push("race");
-                if (!state)
-                    missingFields.push("state");
+                // if (!race) missingFields.push("race");
+                // if (!state) missingFields.push("state");
+                // if (!registration_via) missingFields.push("registration_via");
                 if (missingFields.length > 0) {
                     return {
                         status: 400,
@@ -70,7 +67,9 @@ class CandidateServices {
                     pcd,
                     phone,
                     race,
-                    state,
+                    note,
+                    registration_via,
+                    state: "Espírito Santo",
                 };
                 const candidate = yield prisma.candidate.create({
                     data: Object.assign(Object.assign({}, objCandidate), { experiences: {
@@ -171,6 +170,53 @@ class CandidateServices {
                     return { status: 404, response: "candidate not found" };
                 }
                 return { status: 200, response: candidate };
+            }
+            catch (error) {
+                return { status: 500, response: { error } };
+            }
+        });
+    }
+    candidateListDetailsByCPFService(cpf) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!cpf) {
+                return { status: 400, response: "CPF is empty" };
+            }
+            try {
+                const candidate = yield prisma.candidate.findFirst({
+                    where: {
+                        cpf,
+                    },
+                });
+                if (!candidate) {
+                    return { status: 404, response: "candidate not found" };
+                }
+                return { status: 200, response: candidate };
+            }
+            catch (error) {
+                return { status: 500, response: { error } };
+            }
+        });
+    }
+    candidateListPublicByCPFService(cpf) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!cpf) {
+                return { status: 400, response: "CPF is empty" };
+            }
+            try {
+                const candidate = yield prisma.candidate.findFirst({
+                    where: {
+                        cpf,
+                    },
+                });
+                if (!candidate) {
+                    return { status: 404, response: "candidate not found" };
+                }
+                const responsePublic = {
+                    name: candidate.name,
+                    created_at: candidate.created_at,
+                    is_active: candidate.destroyed_at ? false : true,
+                };
+                return { status: 200, response: responsePublic };
             }
             catch (error) {
                 return { status: 500, response: { error } };

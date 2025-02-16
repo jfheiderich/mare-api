@@ -21,24 +21,27 @@ model User {
 }
 
 model Candidate {
-  id           String       @id @default(auto()) @map("_id") @db.ObjectId
-  created_at   DateTime?    @default(now())
-  destroyed_at DateTime?
-  updated_at   DateTime?
-  experiences  Experience[] @relation("CandidateToExperience")
-  cpf          String       @unique
-  name         String
-  birthDate    String
-  phone        String
-  cep          String
-  city         String
-  state        String
-  neighborhood String
-  pcd          String
-  gender       String
-  race         String
-  education    String
-  courses      String
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  created_at       DateTime?    @default(now())
+  destroyed_at     DateTime?
+  updated_at       DateTime?
+  experiences      Experience[] @relation("CandidateToExperience")
+  cpf              String       @unique
+  name             String
+  birthDate        String
+  phone            String
+  cep              String?
+  city             String
+  state            String
+  neighborhood     String
+  pcd              String
+  gender           String
+  race             String
+  education        String
+  courses          String?
+  file             String?
+  note             String?
+  registration_via String
 
   @@map("candidate")
 }

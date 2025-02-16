@@ -17,6 +17,9 @@ interface ICandidate {
   race: string;
   education: string;
   courses: string;
+  note?: string;
+  file?: string;
+  registration_via: string;
 }
 
 interface IExperience {

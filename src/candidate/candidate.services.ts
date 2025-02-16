@@ -19,7 +19,8 @@ export default class CandidateServices {
         pcd,
         phone,
         race,
-        state,
+        note,
+        registration_via,
       } = data;
 
       const existingCandidate = await prisma.candidate.findUnique({
@@ -33,9 +34,9 @@ export default class CandidateServices {
       const missingFields = [];
 
       if (!birthDate) missingFields.push("birthDate");
-      if (!cep) missingFields.push("cep");
+      // if (!cep) missingFields.push("cep");
       if (!city) missingFields.push("city");
-      if (!courses) missingFields.push("courses");
+      // if (!courses) missingFields.push("courses");
       if (!cpf) missingFields.push("cpf");
       if (!education) missingFields.push("education");
       if (!experiences) missingFields.push("experiences");
@@ -45,7 +46,8 @@ export default class CandidateServices {
       if (!pcd) missingFields.push("pcd");
       if (!phone) missingFields.push("phone");
       if (!race) missingFields.push("race");
-      if (!state) missingFields.push("state");
+      // if (!state) missingFields.push("state");
+      // if (!registration_via) missingFields.push("registration_via");
 
       if (missingFields.length > 0) {
         return {
@@ -69,7 +71,9 @@ export default class CandidateServices {
         pcd,
         phone,
         race,
-        state,
+        note,
+        registration_via,
+        state: "Espírito Santo",
       };
 
       const candidate = await prisma.candidate.create({
@@ -188,6 +192,56 @@ export default class CandidateServices {
       }
 
       return { status: 200, response: candidate };
+    } catch (error) {
+      return { status: 500, response: { error } };
+    }
+  }
+
+  async candidateListDetailsByCPFService(cpf: string) {
+    if (!cpf) {
+      return { status: 400, response: "CPF is empty" };
+    }
+
+    try {
+      const candidate = await prisma.candidate.findFirst({
+        where: {
+          cpf,
+        },
+      });
+
+      if (!candidate) {
+        return { status: 404, response: "candidate not found" };
+      }
+
+      return { status: 200, response: candidate };
+    } catch (error) {
+      return { status: 500, response: { error } };
+    }
+  }
+
+  async candidateListPublicByCPFService(cpf: string) {
+    if (!cpf) {
+      return { status: 400, response: "CPF is empty" };
+    }
+
+    try {
+      const candidate = await prisma.candidate.findFirst({
+        where: {
+          cpf,
+        },
+      });
+
+      if (!candidate) {
+        return { status: 404, response: "candidate not found" };
+      }
+
+      const responsePublic = {
+        name: candidate.name,
+        created_at: candidate.created_at,
+        is_active: candidate.destroyed_at ? false : true,
+      };
+
+      return { status: 200, response: responsePublic };
     } catch (error) {
       return { status: 500, response: { error } };
     }

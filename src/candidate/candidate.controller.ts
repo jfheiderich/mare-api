@@ -56,4 +56,26 @@ export default class CandidateControllers {
       res.status(500).json({ error: error || "Internal Server Error" });
     }
   }
+
+  async candidateListDetailsByCPFController(req: Request, res: Response) {
+    try {
+      const cpf = req.params.cpf;
+      const candidate =
+        await candidate_services.candidateListDetailsByCPFService(cpf);
+      res.status(candidate.status).send(candidate.response);
+    } catch (error) {
+      res.status(500).json({ error: error || "Internal Server Error" });
+    }
+  }
+
+  async candidateListPublicByCPFController(req: Request, res: Response) {
+    try {
+      const cpf = req.params.cpf;
+      const candidate =
+        await candidate_services.candidateListPublicByCPFService(cpf);
+      res.status(candidate.status).send(candidate.response);
+    } catch (error) {
+      res.status(500).json({ error: error || "Internal Server Error" });
+    }
+  }
 }

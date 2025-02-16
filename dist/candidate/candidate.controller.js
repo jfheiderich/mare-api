@@ -75,5 +75,29 @@ class CandidateControllers {
             }
         });
     }
+    candidateListDetailsByCPFController(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const cpf = req.params.cpf;
+                const candidate = yield candidate_services.candidateListDetailsByCPFService(cpf);
+                res.status(candidate.status).send(candidate.response);
+            }
+            catch (error) {
+                res.status(500).json({ error: error || "Internal Server Error" });
+            }
+        });
+    }
+    candidateListPublicByCPFController(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const cpf = req.params.cpf;
+                const candidate = yield candidate_services.candidateListPublicByCPFService(cpf);
+                res.status(candidate.status).send(candidate.response);
+            }
+            catch (error) {
+                res.status(500).json({ error: error || "Internal Server Error" });
+            }
+        });
+    }
 }
 exports.default = CandidateControllers;
