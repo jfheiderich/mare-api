@@ -1,19 +1,12 @@
 {
 	"compilerOptions": {
-		"moduleResolution": "node",
-		"skipLibCheck": true,
-		"target": "ES6",
-		"module": "CommonJS",
-		"outDir": "dist",
-		"rootDir": "src",
-		"strict": true,
-		"esModuleInterop": true
+		"outDir": "./dist", // Compilar para a pasta 'dist'
+		"rootDir": "./src", // Código fonte na pasta 'src'
+		"esModuleInterop": true, // Habilitar interoperabilidade de módulos
+		"module": "CommonJS", // Usar módulos CommonJS
+		"target": "ES6"
 	},
 	"include": [
 		"src/**/*"
-	],
-	"exclude": [
-		"node_modules",
-		"dist"
-	]
+	] // Incluir todos os arquivos em 'src'
 }
