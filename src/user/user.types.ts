@@ -1,4 +1,4 @@
-interface IUser {
+export interface IUser {
   id?: string;
   created_at?: Date;
   destroyed_at?: Date;
