@@ -16,3 +16,4 @@ const port = process.env.PORT || 4444;
 app.listen(port, () => {
     console.log(`server on port ${port}`);
 });
+exports.default = app;
