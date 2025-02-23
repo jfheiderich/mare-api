@@ -49,6 +49,7 @@ export default class UserServices {
     }
 
     // if (data.role) {
+
     //   return { status: 400, response: "you cannot change the user's role" };
     // }
 
