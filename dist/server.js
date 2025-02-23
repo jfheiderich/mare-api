@@ -12,6 +12,9 @@ app.use("/", routes_1.default);
 app.get("/", (req, res) => {
     res.json({ message: "API funcionando corretamente! 🚀" });
 });
+app.get("/favicon.ico", (req, res) => {
+    res.status(200).send();
+});
 const port = process.env.PORT || 4444;
 app.listen(port, () => {
     console.log(`server on port ${port}`);

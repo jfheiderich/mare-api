@@ -1,12 +1,12 @@
-import { Request, Response } from "express";
 import UserServices from "./user.services";
+import { IUser } from "./user.types";
 
 const user_services = new UserServices();
 
 export default class UserControllers {
-  async userCreateController(req: Request, res: Response) {
+  async userCreateController(req, res) {
     try {
-      const body = req.body;
+      const body = req.body as IUser;
       const user = await user_services.userCreateService(body);
       res.status(user.status).send(user.response);
     } catch (error) {
@@ -14,7 +14,7 @@ export default class UserControllers {
     }
   }
 
-  async userUpdateController(req: Request, res: Response) {
+  async userUpdateController(req, res) {
     try {
       const body = req.body;
       const id = req.params.id;
@@ -25,7 +25,7 @@ export default class UserControllers {
     }
   }
 
-  async userDeleteController(req: Request, res: Response) {
+  async userDeleteController(req, res) {
     try {
       const id = req.params.id;
       const user = await user_services.userDeleteService(id);
@@ -35,7 +35,7 @@ export default class UserControllers {
     }
   }
 
-  async userListAllController(req: Request, res: Response) {
+  async userListAllController(req: Request, res) {
     try {
       const allUsers = await user_services.userListAllService();
       res.status(allUsers.status).send(allUsers.response);
@@ -44,7 +44,7 @@ export default class UserControllers {
     }
   }
 
-  async userListByIdController(req: Request, res: Response) {
+  async userListByIdController(req, res) {
     try {
       const id = req.params.id;
       const user = await user_services.userListByIdService(id);
@@ -54,7 +54,7 @@ export default class UserControllers {
     }
   }
 
-  async userLoginController(req: Request, res: Response) {
+  async userLoginController(req, res) {
     try {
       const body = req.body;
       const user = await user_services.userLoginService(body);
