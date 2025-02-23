@@ -8,7 +8,7 @@ require("dotenv/config");
 const authMiddleware = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return next(new Error("Unauthorized: No token provided"));
+        return next({ status: 401, response: { error: "unauthorized" } });
     }
     const token = authHeader.split(" ")[1];
     try {
@@ -17,7 +17,7 @@ const authMiddleware = (req, res, next) => {
         next();
     }
     catch (error) {
-        return next(new Error("Unauthorized: Invalid token"));
+        return next({ status: 401, response: { error: "unauthorized" } });
     }
 };
 exports.default = authMiddleware;

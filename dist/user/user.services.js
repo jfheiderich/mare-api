@@ -55,9 +55,6 @@ class UserServices {
             if (!id) {
                 return { status: 400, response: "id is empty" };
             }
-            // if (data.role) {
-            //   return { status: 400, response: "you cannot change the user's role" };
-            // }
             try {
                 const userToUpdate = yield prisma.user.findFirst({
                     where: {
@@ -66,6 +63,19 @@ class UserServices {
                 });
                 if (!userToUpdate) {
                     return { status: 404, response: { error: "user not found" } };
+                }
+                const isSuperAdmin = userToUpdate.role === "super_admin";
+                if (data.role && !isSuperAdmin) {
+                    return {
+                        status: 400,
+                        response: { error: "you cannot change this field" },
+                    };
+                }
+                if (data.password && !isSuperAdmin) {
+                    return {
+                        status: 400,
+                        response: { error: "you cannot change this field" },
+                    };
                 }
                 const userUpdated = yield prisma.user.update({
                     where: { id },

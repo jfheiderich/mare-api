@@ -6,7 +6,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return next(new Error("Unauthorized: No token provided"));
+    return next({ status: 401, response: { error: "unauthorized" } });
   }
 
   const token = authHeader.split(" ")[1];
@@ -21,7 +21,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
     next();
   } catch (error) {
-    return next(new Error("Unauthorized: Invalid token"));
+    return next({ status: 401, response: { error: "unauthorized" } });
   }
 };
 
