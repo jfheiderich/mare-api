@@ -5,3 +5,16 @@ declare module "express-serve-static-core" {
     };
   }
 }
+declare namespace Express {
+  interface Request {
+    customProperties: string[];
+  }
+}
+import * as express from "express";
+declare global {
+  namespace Express {
+    interface Request {
+      user?: Record<string, any>;
+    }
+  }
+}

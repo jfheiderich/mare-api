@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { ICandidate } from "./candidate.types";
 
 const prisma = new PrismaClient();
 

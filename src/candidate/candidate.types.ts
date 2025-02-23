@@ -1,4 +1,4 @@
-interface ICandidate {
+export interface ICandidate {
   id?: string;
   created_at?: Date;
   destroyed_at?: Date;

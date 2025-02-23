@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import CandidateServices from "./candidate.services";
+import { ICandidate } from "./candidate.types";
 
 const candidate_services = new CandidateServices();
 
 export default class CandidateControllers {
   async candidateCreateController(req: Request, res: Response) {
     try {
-      const body = req.body;
+      const body = req.body as ICandidate;
       const candidate = await candidate_services.candidateCreateService(body);
       res.status(candidate.status).send(candidate.response);
     } catch (error) {
