@@ -1,3 +1,4 @@
+import * as express from "express";
 declare module "express-serve-static-core" {
   interface Request {
     user?: {
@@ -10,7 +11,6 @@ declare namespace Express {
     customProperties: string[];
   }
 }
-import * as express from "express";
 declare global {
   namespace Express {
     interface Request {

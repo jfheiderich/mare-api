@@ -48,9 +48,9 @@ export default class UserServices {
       return { status: 400, response: "id is empty" };
     }
 
-    if (data.role) {
-      return { status: 400, response: "you cannot change the user's role" };
-    }
+    // if (data.role) {
+    //   return { status: 400, response: "you cannot change the user's role" };
+    // }
 
     try {
       const userToUpdate = await prisma.user.findFirst({
