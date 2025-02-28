@@ -168,7 +168,11 @@ export default class CandidateServices {
 
   async candidatesListAllService() {
     try {
-      const candidates = await prisma.candidate.findMany();
+      const candidates = await prisma.candidate.findMany({
+        include: {
+          experiences: true,
+        },
+      });
 
       return { status: 200, response: candidates };
     } catch (error) {
@@ -185,6 +189,9 @@ export default class CandidateServices {
       const candidate = await prisma.candidate.findFirst({
         where: {
           id,
+        },
+        include: {
+          experiences: true,
         },
       });
 
@@ -207,6 +214,9 @@ export default class CandidateServices {
       const candidate = await prisma.candidate.findFirst({
         where: {
           cpf,
+        },
+        include: {
+          experiences: true,
         },
       });
 
